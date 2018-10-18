@@ -27,5 +27,4 @@ class ofApp : public ofBaseApp{
 
 	private:
 		double function(double * coords, unsigned int dim);
-		
 };

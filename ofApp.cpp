@@ -4,21 +4,17 @@
 
 #include <iostream>
 
-
 // Fitness function
 double ofApp::function(double * coords, unsigned int dim)
 {
 	double sum1 = 0;
 
-	for(unsigned int index = 1; index <= dim; ++index)
-	{
-		sum1 += pow((coords[index - 1] + pow(-1.0, index) * (index % 4)), 2);
-	}
-
 	double sum2 = 0;
 
 	for(unsigned int index = 1; index <= dim; ++index)
 	{
+		sum1 += pow((coords[index - 1] + pow(-1.0, index) * (index % 4)), 2);
+		
 		sum2 += pow(coords[index - 1], index);	
 	}
 
@@ -30,10 +26,12 @@ double ofApp::function(double * coords, unsigned int dim)
 //--------------------------------------------------------------
 void ofApp::setup()
 {
+	ofEnableDepthTest();
+
 	// size is from -8 to 8
 	const int size = 16;
 	// how many vertices per 1 unit
-	const int perUnit = 4;
+	const int perUnit = 5;
 	// square root of the number of vertices
 	const int checks = perUnit * size;
 
@@ -53,7 +51,7 @@ void ofApp::setup()
 
 			// the y position of the current vertex
 			double currentY = function(coord, 2);
-
+			
 			ofVec3f point(currentX, currentY, currentZ);
 			mesh.addVertex(point);
 		}
@@ -73,24 +71,24 @@ void ofApp::setup()
 			if(x == 0)
 			{
 				mesh.addIndex(current);
-				mesh.addIndex(belowRight);	
 				mesh.addIndex(below);
+				mesh.addIndex(belowRight);	
 			}
 			else if(x == checks - 1)
 			{
 				mesh.addIndex(current);
-				mesh.addIndex(below);
 				mesh.addIndex(left);
+				mesh.addIndex(below);
 			}
 			else
 			{
 				mesh.addIndex(current);
-				mesh.addIndex(belowRight);
 				mesh.addIndex(below);
+				mesh.addIndex(belowRight);
 				
 				mesh.addIndex(current);
-				mesh.addIndex(below);
 				mesh.addIndex(left);
+				mesh.addIndex(below);
 			}
 		}
 	}
@@ -109,16 +107,11 @@ void ofApp::draw(){
 	cam.begin();
 
 	mesh.enableColors();
+	ofSetColor(255,255,255);
 	mesh.drawWireframe();
-	mesh.drawVertices();
 	mesh.disableColors();
 
-	ofSetColor(137,137,140);
-	ofFill();
-
 	cam.end();
-
-	ofSetColor(255);
 }
 
 //--------------------------------------------------------------
