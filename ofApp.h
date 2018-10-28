@@ -26,5 +26,10 @@ class ofApp : public ofBaseApp{
 		ofVboMesh mesh;
 
 	private:
+		
+		// Elvis needs boats function
 		double function(double * coords, unsigned int dim);
+		
+		// Townsend function
+		double function2(double * coords, unsigned int dim);
 };

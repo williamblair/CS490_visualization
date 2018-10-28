@@ -23,6 +23,21 @@ double ofApp::function(double * coords, unsigned int dim)
 	return result;
 }
 
+// other test fitness function
+// this function expects dim to be 2 anyways...
+// townsend function:
+// https://en.wikipedia.org/wiki/Test_functions_for_optimization
+double ofApp::function2(double * coords, unsigned int dim)
+{
+	double x = coords[0];
+	double y = coords[1];
+	double cosVal = -1.0 * pow(cos((x - 0.1)*y), 2.0);
+	
+	double sinVal = x*sin(3*x+y);
+	
+	return cosVal - sinVal;
+}
+
 //--------------------------------------------------------------
 void ofApp::setup()
 {
@@ -50,7 +65,8 @@ void ofApp::setup()
 			double coord [] = {currentX, currentZ};
 
 			// the y position of the current vertex
-			double currentY = function(coord, 2);
+			//double currentY = function(coord, 2);
+			double currentY = function2(coord, 2);
 			
 			ofVec3f point(currentX, currentY, currentZ);
 			mesh.addVertex(point);
